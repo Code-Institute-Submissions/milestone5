@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/PhilSurgenor/milestone5.svg?branch=master)](https://travis-ci.org/PhilSurgenor/milestone5)
+
 Phil Surgenor - Milestone Project 5
 ===
 
