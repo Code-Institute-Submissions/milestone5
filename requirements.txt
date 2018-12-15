@@ -8,3 +8,4 @@ pycurl==7.19.3
 pytz==2018.7
 six==1.5.2
 wheel==0.24.0
+gunicorn==19.9.0
