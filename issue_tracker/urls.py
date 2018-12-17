@@ -15,11 +15,12 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from pages import urls as urls_pages
-from pages.views import index
+from pages.views import index, issue_tracker
 from django.contrib import admin
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', index, name='home'),
+    url(r'^issue-tracker/', issue_tracker, name='tracker_home'),
     
 ]
