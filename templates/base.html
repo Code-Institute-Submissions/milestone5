@@ -21,9 +21,15 @@
       <a class="navbar-brand" href="{% url 'home' %}">UnicornAttractor</a>
 
       <ul class="navbar-nav mr-auto user-nav">
+        {% if user.is_authenticated %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}">Logout</a>
         </li>
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </li>
+        {% endif %}
       </ul>
 
       <button class="navbar-toggler ml-auto" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
