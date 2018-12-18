@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse
 from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
+from accounts.forms import UserLoginForm
 
 
 """
@@ -20,4 +21,24 @@ logs user in and returns them to the issue-tracker home page
 """ 
 def login(request):
   
-  return render(request, 'login.html')
+  if request.user.is_authenticated:
+    return redirect(reverse('tracker_home'))
+  
+  if request.method == "POST":
+    login_form = UserLoginForm(request.POST)
+    
+    if login_form.is_valid():
+      user = auth.authenticate(username=request.POST['username'],
+                              password=request.POST['password'])
+      
+      
+      if user:
+        auth.login(user=user, request=request)
+        messages.success(request, "Success, You're In!")
+        return redirect(reverse('tracker_home'))
+      else: login_form.add_error(None, "Oops! Either Your Username or Password is Incorrect")
+    
+  else:
+    login_form = UserLoginForm()
+  
+  return render(request, 'login.html', {"login_form": login_form})
