@@ -27,7 +27,7 @@
             {{ user }}
             </a>
             <div class="dropdown-menu" aria-labelledby="Issue Tracker">
-              <a class="dropdown-item" href="{% url 'tracker_home' %}">My Profile</a>
+              <a class="dropdown-item" href="{% url 'profile' %}">My Profile</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
             </div>
@@ -64,7 +64,7 @@
               {% else %}
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'login' %}">Login</a>
-              <a class="dropdown-item" href="#">Register</a>
+              <a class="dropdown-item" href="{% url 'register' %}">Register</a>
               {% endif %}
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="#">How We're Doing</a>
