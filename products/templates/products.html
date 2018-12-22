@@ -2,23 +2,47 @@
 {% block page_title %}Buy Products{% endblock %}
 
 {% block hero %}
-
 <div class="col-md-6">
-   <h1>Buy Our Lovely UniCoins</h1> 
+  <h1>Buy Our Lovely UniCoins</h1>
 </div>
-
 {% endblock %}
 
 {% block content %}
-<section class="form">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-8 mx-auto">
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12 mx-auto">
+        <p>Use UniCoins to upvote Feature Suggestions</p>
+      </div>
+    </div>
+    
+    <div class="row">
+      
+      {% for product in products %}
+      <div class="col-md-6 col-lg-4 mx-auto">
+        <div class="card mb-3">
+          <h3 class="card-header">{{ product.name }}</h3>
+          <div class="card-body">
+            <p class="card-title">{{ product.description }}</p>
+          </div>
+          <img class="img-fluid"  src="{{ MEDIA_URL }}{{ product.image }}" alt="Product Image">
+         
+          <div class="card-body text-center">
+            £{{ product.price }}
+          </div>
           
-         <p>Use UniCoins to upvote Feature Suggestions</p>
+          <div class="card-body text-center">
+            <form method="post" action="{% url 'add_to_cart' product.id %}">
+              {% csrf_token %}
+              <input type="hidden" name="quantity" value='1'/>
+              <button class="btn btn-lg btn-success" type="submit">Add To Cart</button>
+            </form>
+          </div>
           
         </div>
       </div>
+      {% endfor %}
     </div>
+  </div>
 </section>
 {% endblock %}

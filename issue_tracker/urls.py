@@ -17,10 +17,10 @@ from .settings import MEDIA_ROOT
 from django.conf.urls import url, include
 from django.views import static
 from django.contrib import admin
-from pages import urls as urls_pages
 from pages.views import index, issue_tracker
 from accounts import urls as accounts_urls
 from products import urls as products_urls
+from cart import urls as cart_urls
 
 
 urlpatterns = [
@@ -29,6 +29,7 @@ urlpatterns = [
     url(r'^issue-tracker/', issue_tracker, name='tracker_home'),
     url(r'^accounts/', include(accounts_urls)),
     url(r'^unicoins/', include(products_urls)),
+    url(r'^cart/', include(cart_urls)),
     url(r'^media/(?P<path>.*)$', static.serve, {'document_root': MEDIA_ROOT}),
     
 ]

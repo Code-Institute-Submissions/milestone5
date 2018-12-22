@@ -72,9 +72,9 @@
           </li>
 
           <li class="nav-item">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{% url 'view_cart' %}">
               <i class="fas fa-shopping-cart"></i> Cart
-              <label class="badge badge-warning">2</label>
+              <label class="badge badge-warning">{{ product_count }}</label>
             </a>
           </li>
         </ul>
@@ -100,9 +100,9 @@
 
   {% block content %}{% endblock %}
   
-  <footer class="bg-primary">
+  <!--<footer class="bg-primary">-->
     
-  </footer>
+  <!--</footer>-->
 
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
