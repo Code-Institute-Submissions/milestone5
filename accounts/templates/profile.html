@@ -15,7 +15,24 @@
     <div class="container">
       <div class="row">
         <div class="col-sm-8 col-md-6 mx-auto">
-          Date Joined: {{ profile.date_joined }}
+          <p>Date Joined: {{ profile.date_joined }}</p>
+          
+          <p>UniCoins Left: </p>
+        </div>
+        
+        
+        <div class="col-sm-8 col-md-6 mx-auto">
+          {% if items %}
+          <h2>Previous Orders:</h2>
+          
+          {% for item in items %}
+          <p>Order Date: {{ item.order.date }}</p>
+          <p>Product: {{ item.product.name }}</p>
+          <p>Price: £{{ item.product.price }}</p>
+          <p>Quantity: {{ item.quantity }}</p>
+          <hr>
+          {% endfor %}
+          {% endif %}
         </div>
       </div>
     </div>

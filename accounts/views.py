@@ -3,6 +3,7 @@ from django.contrib import auth, messages
 from django.contrib.auth.decorators import login_required
 from accounts.forms import UserLoginForm, UserRegistrationForm
 from django.contrib.auth.models import User
+from checkout.models import OrderLineItem
 
 
 """
@@ -80,4 +81,5 @@ USER PROFILE
 @login_required
 def profile(request):
   user = User.objects.get(email=request.user.email)
-  return render(request, 'profile.html', {"profile": user})
+  items = OrderLineItem.objects.filter(order__purchased_by=user)
+  return render(request, 'profile.html', {"profile": user, "items":items})
