@@ -3,6 +3,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import MakePaymentForm, OrderForm
 from .models import OrderLineItem
+from accounts.models import Token
 from django.conf import settings
 from django.utils import timezone
 from products.models import Product
@@ -25,9 +26,11 @@ def checkout(request):
       
       cart = request.session.get('cart', {})
       total = 0
+      tokens_bought = 0
       for id, quantity in cart.items():
         product = get_object_or_404(Product, pk=id)
         total += quantity * product.price
+        tokens_bought += product.token_amount
         
         order_line_item = OrderLineItem(
             order = order,
@@ -35,6 +38,18 @@ def checkout(request):
             quantity = quantity
             )
         order_line_item.save()
+      
+      if Token.objects.filter(user=request.user).exists():
+        tokens = Token.objects.get(user=request.user)
+
+        total_tokens = int(tokens.amount) + tokens_bought
+      else:
+        total_tokens = tokens_bought
+        
+      values_to_update = {'amount':total_tokens}
+      
+      obj_token, created = Token.objects.update_or_create(
+        user=request.user, defaults=values_to_update)
       
       try:
         customer = stripe.Charge.create(
