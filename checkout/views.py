@@ -18,11 +18,6 @@ def checkout(request):
     payment_form = MakePaymentForm(request.POST)
     
     if order_form.is_valid() and payment_form.is_valid():
-      order = order_form.save(commit=False)
-      order.date = timezone.now()
-      order.purchased_by = request.user
-      order.save()
-      
       
       cart = request.session.get('cart', {})
       total = 0
@@ -32,24 +27,6 @@ def checkout(request):
         total += quantity * product.price
         tokens_bought += product.token_amount
         
-        order_line_item = OrderLineItem(
-            order = order,
-            product = product,
-            quantity = quantity
-            )
-        order_line_item.save()
-      
-      if Token.objects.filter(user=request.user).exists():
-        tokens = Token.objects.get(user=request.user)
-
-        total_tokens = int(tokens.amount) + tokens_bought
-      else:
-        total_tokens = tokens_bought
-        
-      values_to_update = {'amount':total_tokens}
-      
-      obj_token, created = Token.objects.update_or_create(
-        user=request.user, defaults=values_to_update)
       
       try:
         customer = stripe.Charge.create(
@@ -61,9 +38,39 @@ def checkout(request):
       except stripe.error.CardError:
                 messages.error(request, "Your card was declined!")
                 
+                
       if customer.paid:
         messages.error(request, "You have successfully paid")
         request.session['cart'] = {}
+        
+        order = order_form.save(commit=False)
+        order.date = timezone.now()
+        order.purchased_by = request.user
+        order.save()
+        
+        
+        for id, quantity in cart.items():
+          product = get_object_or_404(Product, pk=id)
+
+          order_line_item = OrderLineItem(
+              order = order,
+              product = product,
+              quantity = quantity
+              )
+          order_line_item.save()
+        
+        if Token.objects.filter(user=request.user).exists():
+          tokens = Token.objects.get(user=request.user)
+
+          total_tokens = int(tokens.amount) + tokens_bought
+        else:
+          total_tokens = tokens_bought
+        
+        values_to_update = {'amount':total_tokens}
+      
+        obj_token, created = Token.objects.update_or_create(
+        user=request.user, defaults=values_to_update)
+        
         return redirect(reverse('products'))
       else:
         messages.error(request, "Unable to take payment")
@@ -75,4 +82,3 @@ def checkout(request):
     order_form = OrderForm()
         
   return render(request, "checkout.html", {'order_form': order_form, 'payment_form': payment_form, 'publishable': settings.STRIPE_PUBLISHABLE_KEY})
-        
