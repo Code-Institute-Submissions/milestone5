@@ -14,7 +14,13 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-12">
+        <h2>Suggest A Feature</h2>
         
+        <form method="POST">
+        {% csrf_token %}
+        {{ form | as_bootstrap }}
+        <button type="submit" class="btn btn-lg btn-primary">Suggest Feature</button>
+        </form>
       </div>
     </div>
   </div>

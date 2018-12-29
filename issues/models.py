@@ -7,7 +7,7 @@ class Bug(models.Model):
     A Bug Report
     """
     title = models.CharField(max_length=200)
-    decsription = models.TextField()
+    description = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
     fixed = models.BooleanField(blank=False, default=False)
     date_fixed = models.DateTimeField(blank=True, null=True)
@@ -24,7 +24,7 @@ class Feature(models.Model):
     A Feature Suggestion
     """
     title = models.CharField(max_length=200)
-    decsription = models.TextField()
+    description = models.TextField()
     date_created = models.DateTimeField(auto_now_add=True)
     added = models.BooleanField(blank=False, default=False)
     date_added = models.DateTimeField(blank=True, null=True)
