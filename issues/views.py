@@ -12,6 +12,13 @@ def all_bugs(request):
 def bug_detail(request, pk):
   bug = get_object_or_404(Bug, pk=pk)
   return render(request, "bugdetail.html", {'bug': bug})
+  
+@login_required  
+def upvote_bug(request, pk):
+  bug = get_object_or_404(Bug, pk=pk)
+  bug.score += 1
+  bug.save()
+  return redirect(bug_detail, bug.pk)
 
 @login_required
 def report_bug(request):
