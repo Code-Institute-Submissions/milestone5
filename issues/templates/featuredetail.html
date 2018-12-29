@@ -15,6 +15,10 @@
     <div class="row">
       <div class="col-sm-12">
         <p>{{ feature.description }}</p>
+        
+        <p>Score: {{ feature.score }}</p>
+        
+        <a href="{% url 'upvote_feature' feature.id %}" class="btn btn-lg btn-success">Upvote</a>
       </div>
     </div>
   </div>

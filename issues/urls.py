@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 from pages.views import issue_tracker
-from .views import all_bugs, all_features, bug_detail, feature_detail, report_bug, suggest_feature, upvote_bug
+from .views import all_bugs, all_features, bug_detail, feature_detail, report_bug, suggest_feature, upvote_bug, upvote_feature
 
 urlpatterns = [
   url(r'^$', issue_tracker, name='tracker_home'),
@@ -13,4 +13,5 @@ urlpatterns = [
   url(r'^all_features$', all_features, name='all_features'),
   url(r'^feature/(?P<pk>\d+)/$', feature_detail, name='feature_detail'),
   url(r'^suggest-feature$', suggest_feature, name='suggest_feature'),
+  url(r'^upvote_feature/(?P<pk>\d+)/$', upvote_feature, name='upvote_feature'),
 ]
