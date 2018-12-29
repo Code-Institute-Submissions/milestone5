@@ -57,10 +57,10 @@
             Tell Us About It!
             </a>
             <div class="dropdown-menu" aria-labelledby="Issue Tracker">
-              <a class="dropdown-item" href="{% url 'tracker_home' %}">What's This?</a>
+              <a class="dropdown-item" href="{% url 'tracker_home' %}">Issue Tracker</a>
               {% if user.is_authenticated %}
-              <a class="dropdown-item" href="#">Report Bug</a>
-              <a class="dropdown-item" href="#">Suggest a Feature</a>
+              <a class="dropdown-item" href="{% url 'report_bug' %}">Report Bug</a>
+              <a class="dropdown-item" href="{% url 'suggest_feature' %}">Suggest a Feature</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" href="{% url 'products' %}">Buy UniCoins</a>
               {% else %}
