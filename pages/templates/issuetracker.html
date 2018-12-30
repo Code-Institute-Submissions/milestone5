@@ -1,10 +1,317 @@
 {% extends 'base.html' %}
-{% block page_title %}Issue Tracker{% endblock %}
+{% block page_title %}Issue Tracker - Home{% endblock %}
 
 {% block hero %}
 
-<div class="col-md-6">
-   <h1>Issue Tracker!</h1> 
+<div class="col-md-12 text-center">
+   <h1>UnicornAttractor - Issue Tracker</h1>
 </div>
 
+{% endblock %}
+
+
+{% block content %}
+<section class="issue-intro text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-12 text-center">
+        <p>Welcome to the issue tracker. Here you can report a bug, or suggest a feature.</p>
+        <p>If you are having the same problem as someone else you can upvote the bug report so that it gets attention quicker. You can upvote as many times as you like.</p>
+        
+        <p>If you would like to see a feature added to the app you can suggest one or upvote one someone has already subbmitted. As we promise to spend at least 50% of our development time on new features, every upvote will cost one UniCoin. You can buy UniCoins <a href="{% url 'products' %}">here</a>.</p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-6">
+        <div class="circle">
+          <h2>
+            Bugs Fixed<br>Today<br>0
+          </h2>
+        </div>   
+      </div>
+    
+
+      <div class="col-6">
+        <div class="circle">
+          <h2>
+            Extra Features<br>Added<br>0
+          </h2>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-sm-6">
+        <a href="{% url 'report_bug' %}" class="btn btn-lg btn-warning issue-intro-btn">Report A Bug</a>
+      </div>
+      
+      <div class="col-sm-6">
+        <a href="{% url 'suggest_feature' %}" class="btn btn-lg btn-success">Suggest A Feature</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="row">
+            <div class="col-12 text-center"><h4>Bugs</h4></div>
+        </div>
+        
+        <!--FIXED TICKETS-->
+        <div class="ticket-head fixed">
+        <hr>
+        <div class="row">
+          <div class="col-4">FIXED</div>
+          <div class="col-4">Total: {{ total_fixed }}</div>
+          <div class="col-4"><a href="">View All</a></div>
+        </div>
+        <hr>
+        </div>
+        
+        <p class="text-left"><small>Most Recent</small></p>
+        {% if fixed_bugs %}
+        <div class="row">
+        {% for fixed_bug in fixed_bugs|slice:":1" %}
+        <div class="col-sm-11 mx-auto ticket fixed text-left">
+          <div class="row">
+            <div class="col-sm-6">
+              <h5>{{ fixed_bug.title }}</h5>
+            </div>
+            
+            <div class="col-sm-6 text-right">
+              <a href="{% url 'bug_detail' fixed_bug.id %}">More Info</a>
+            </div>
+            
+            <div class="col-sm-8">
+              <p class="ticket-desc">{{ fixed_bug.description|truncatechars:70  }}</p>
+            </div>
+            
+            <div class="col-sm-4 text-right">
+              <span class="score faded"><i class="fas fa-arrow-up"></i> {{ fixed_bug.score }}</span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        </div>
+        {% endif %}
+        
+        
+        
+        
+        <!--WORKING ON TICKETS-->
+        <div class="ticket-head working-on">
+        <hr>
+        <div class="row">
+          <div class="col-4">Working On</div>
+          <div class="col-4">Total: {{ total_working }}</div>
+          <div class="col-4"><a href="">View All</a></div>
+        </div>
+        <hr>
+        </div>
+        
+        <p class="text-left"><small>Most Upvoted</small></p>
+        {% if working_bugs %}
+        <div class="row">
+        {% for working_bug in working_bugs|slice:":3" %}
+        
+        <div class="col-sm-11 mx-auto ticket working-on text-left">
+          <div class="row">
+            <div class="col-sm-6">
+              <h5>{{ working_bug.title }}</h5>
+            </div>
+            
+            <div class="col-sm-6 text-right">
+              <a href="{% url 'bug_detail' working_bug.id %}">More Info</a>
+            </div>
+            
+            <div class="col-sm-8">
+              <p class="ticket-desc">{{ working_bug.description|truncatechars:70  }}</p>
+            </div>
+            
+            <div class="col-sm-4 text-right">
+              <span class="score faded"><i class="fas fa-arrow-up"></i> {{ working_bug.score }}</span>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+        </div>
+        {% endif %}
+        
+        
+        
+        
+        <!--TODO TICKETS-->
+        <div class="ticket-head todo">
+        <hr>
+        <div class="row">
+          <div class="col-4">To Do</div>
+          <div class="col-4">Total: {{ total_other }}</div>
+          <div class="col-4"><a href="">View All</a></div>
+        </div>
+        <hr>
+        </div>
+        
+        <p class="text-left"><small>Most Upvoted</small></p>
+        {% if other_bugs %}
+        <div class="row">
+        {% for other_bug in other_bugs|slice:":3" %}
+        
+        <div class="col-sm-11 mx-auto ticket todo text-left">
+          <div class="row">
+            <div class="col-sm-6">
+              <h5>{{ other_bug.title }}</h5>
+            </div>
+            
+            <div class="col-sm-6 text-right">
+              <a href="{% url 'bug_detail' other_bug.id %}">More Info</a>
+            </div>
+            
+            <div class="col-sm-8">
+              <p class="ticket-desc">{{ other_bug.description|truncatechars:70 }}</p>
+            </div>
+            
+            <div class="col-sm-4 text-right">
+              <span class="score"><i class="fas fa-arrow-up"></i> {{ other_bug.score }}</span>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      
+      
+      
+      <div class="col-md-6">
+        <div class="row">
+            <div class="col-12 text-center"><h4>Bugs</h4></div>
+        </div>
+        
+        <!--FIXED TICKETS-->
+        <div class="ticket-head fixed">
+        <hr>
+        <div class="row">
+          <div class="col-4">FIXED</div>
+          <div class="col-4">Total: {{ total_fixed }}</div>
+          <div class="col-4"><a href="">View All</a></div>
+        </div>
+        <hr>
+        </div>
+        
+        <p class="text-left"><small>Most Recent</small></p>
+        {% if fixed_bugs %}
+        <div class="row">
+        {% for fixed_bug in fixed_bugs|slice:":1" %}
+        <div class="col-sm-11 mx-auto ticket fixed text-left">
+          <div class="row">
+            <div class="col-sm-6">
+              <h5>{{ fixed_bug.title }}</h5>
+            </div>
+            
+            <div class="col-sm-6 text-right">
+              <a href="{% url 'bug_detail' fixed_bug.id %}">More Info</a>
+            </div>
+            
+            <div class="col-sm-8">
+              <p class="ticket-desc">{{ fixed_bug.description|truncatechars:70  }}</p>
+            </div>
+            
+            <div class="col-sm-4 text-right">
+              <span class="score faded"><i class="fas fa-arrow-up"></i> {{ fixed_bug.score }}</span>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        </div>
+        {% endif %}
+        
+        
+        
+        
+        <!--WORKING ON TICKETS-->
+        <div class="ticket-head working-on">
+        <hr>
+        <div class="row">
+          <div class="col-4">Working On</div>
+          <div class="col-4">Total: {{ total_working }}</div>
+          <div class="col-4"><a href="">View All</a></div>
+        </div>
+        <hr>
+        </div>
+        
+        <p class="text-left"><small>Most Upvoted</small></p>
+        {% if working_bugs %}
+        <div class="row">
+        {% for working_bug in working_bugs|slice:":3" %}
+        
+        <div class="col-sm-11 mx-auto ticket working-on text-left">
+          <div class="row">
+            <div class="col-sm-6">
+              <h5>{{ working_bug.title }}</h5>
+            </div>
+            
+            <div class="col-sm-6 text-right">
+              <a href="{% url 'bug_detail' working_bug.id %}">More Info</a>
+            </div>
+            
+            <div class="col-sm-8">
+              <p class="ticket-desc">{{ working_bug.description|truncatechars:70  }}</p>
+            </div>
+            
+            <div class="col-sm-4 text-right">
+              <span class="score faded"><i class="fas fa-arrow-up"></i> {{ working_bug.score }}</span>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+        </div>
+        {% endif %}
+        
+        
+        
+        
+        <!--TODO TICKETS-->
+        <div class="ticket-head todo">
+        <hr>
+        <div class="row">
+          <div class="col-4">To Do</div>
+          <div class="col-4">Total: {{ total_other }}</div>
+          <div class="col-4"><a href="">View All</a></div>
+        </div>
+        <hr>
+        </div>
+        
+        <p class="text-left"><small>Most Upvoted</small></p>
+        {% if other_bugs %}
+        <div class="row">
+        {% for other_bug in other_bugs|slice:":3" %}
+        
+        <div class="col-sm-11 mx-auto ticket todo text-left">
+          <div class="row">
+            <div class="col-sm-6">
+              <h5>{{ other_bug.title }}</h5>
+            </div>
+            
+            <div class="col-sm-6 text-right">
+              <a href="{% url 'bug_detail' other_bug.id %}">More Info</a>
+            </div>
+            
+            <div class="col-sm-8">
+              <p class="ticket-desc">{{ other_bug.description|truncatechars:70 }}</p>
+            </div>
+            
+            <div class="col-sm-4 text-right">
+              <span class="score"><i class="fas fa-arrow-up"></i> {{ other_bug.score }}</span>
+            </div>
+          </div>
+        </div>
+
+        {% endfor %}
+        </div>
+        {% endif %}
+      </div>
+    </div>
 {% endblock %}

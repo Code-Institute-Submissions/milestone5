@@ -28,6 +28,15 @@ section {
     border-radius: 0;
 }
 
+.help-block {
+    font-size: 14px;
+}
+
+.error-msg {
+    color: red!important;
+    font-size: 14px;
+}
+
 .main-nav li label {
     margin-bottom: 0;
 }
@@ -76,7 +85,6 @@ section.hero {
 
 
 /*HOME PAGE*/
-
 section.features {
     background-color: rgba(161, 41, 255, 0.6);
     color: #fff;
@@ -94,6 +102,72 @@ section.features {
 section.home-cta h3 {
     margin-bottom: 24px;
 }
+
+
+
+/*ISSUE TRACKER HOME*/
+.circle {
+    border: dashed 2px #2994ff;
+    border-radius: 10px;
+    padding: 24px;
+    margin-top: 24px;
+    margin-bottom: 30px;
+}
+
+.circle h2 {
+    font-size: 22px;
+}
+
+.issue-intro-btn {
+    position: relative;
+    margin-bottom: 24px;
+}
+
+.ticket-head.fixed {
+    background-color: rgba(35, 161, 39, 0.3);
+}
+
+.ticket-head.working-on {
+    background-color: rgba(161, 41, 255, 0.3);
+}
+
+.ticket-head.todo {
+    background-color: rgba(41, 148, 255, 0.3);
+}
+
+
+.ticket {
+    margin-bottom: 24px;
+    padding: 12px;
+}
+
+.ticket.fixed {
+    border: solid 2px #23a127;
+}
+
+.ticket.working-on {
+    border: solid 2px #a129ff;
+}
+
+.ticket.todo {
+    border: solid 2px #2994ff;
+}
+
+.ticket-desc {
+    font-weight: 400;
+}
+
+.ticket .score {
+    font-size: 30px;
+}
+
+.ticket .score.faded {
+    color: #9c9c9c;
+}
+
+
+
+
 
 footer {
     padding-top: 50px;
