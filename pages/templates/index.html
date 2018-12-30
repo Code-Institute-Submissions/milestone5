@@ -3,9 +3,100 @@
 
 
 {% block hero %}
-
-<div class="col-md-6">
-   <h1>Home Page</h1> 
+<div class="col-md-7">
+  <div class="app-img">
+    <img src="{{ MEDIA_URL }}images/unicornapp.png" alt="app image" class="img-fluid">
+  </div>
 </div>
 
+<div class="col-md-5 text-center">
+  <div class="home-hero-box">
+    <h2 class="found">
+      Unicorns Found To Date:
+      <br>
+      <br>
+      0
+    </h2>
+  </div>
+  
+  <img src="{{ MEDIA_URL }}images/appstores.png" alt="app store logos" class="img-fluid">
+  
+  <p>(Just Like Unicorns, This App May Not Actually Exist)</p>
+</div>
+{% endblock %}
+
+
+{% block content %}
+<section class="intro">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-7">
+        <h2>Welcome To UnicornAttractor 1.0</h2>
+        
+        <p>
+          The unicorn is a legendary creature that has been described since antiquity as a beast with a single large, pointed, spiraling horn projecting from its forehead. The unicorn was depicted in ancient seals of the Indus Valley Civilization and was mentioned by the ancient Greeks in accounts of natural history by various writers, including Ctesias, Strabo, Pliny the Younger, and Aelian.
+        </p>
+          
+        <p>
+          If your are still reading this then, you must definately be into unicorns, download our app so you can attract a unicorn and be the envy of all your friends.
+        </p>
+      </div>
+      
+      <div class="col-sm-5 text-center">
+        <img src="{{ MEDIA_URL }}images/appmap.png" alt="App Map" class="img-fluid">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="feature">
+          <i class="fas fa-music"></i>
+          <h3>Over 150 Sounds</h3>
+          <p>Attract your unicorn by playing magical sounds and music</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="feature">
+          <i class="fas fa-map-marker-alt"></i>
+          <h3>GPS Unicorn Tracking</h3>
+          <p>Once you have locked on to a signal, you will be able to track your unicorn for weeks and months</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="feature">
+          <i class="fas fa-search"></i>
+          <h3>Unicorn Identifier</h3>
+          <p>With over 2000 different species of unicorn, telling them apart couldn't be easier</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<section class="home-cta text-center">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 mx-auto">
+        <h3>Found a Bug or Want to Suggest a Feature?</h3>
+        
+        <p>We work really hard to make finding Unicorns as easy as finding a needle in a haystack, but sometimes we miss things. Finding a bug in the software can be a real pain in the app.</p>
+        
+        <p>If you find a problem with the app, the chances are others will have the same problem. If you report the bug others can let us know they to have that same issue.</p>
+        
+        <p>On the other hand, maybe you wish there was something we could add to the app to improve it. If this is the case then you can suggest a feature, and others can let us know they want to see that feature too.</p>
+        
+        <p>Just click that big button below and your wish is our command</p>
+        
+        <a href="{% url 'tracker_home' %}" class="btn btn-lg btn-success">Go To Issue Tracker</a>
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
