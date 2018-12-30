@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, reverse
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
 @login_required
@@ -16,7 +17,7 @@ def add_to_cart(request, id):
 
     cart[id] = cart.get(id, quantity)
     request.session['cart'] = cart
-    print("Test")
+    messages.success(request, "Item Added To Cart")
     return redirect(reverse('products'))
     
 @login_required   
