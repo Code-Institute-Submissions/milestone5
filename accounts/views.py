@@ -12,8 +12,8 @@ Logs user out and returns them to the issue-tracker home page
 @login_required
 def logout(request):
   auth.logout(request)
-  messages.success(request, "You have been logged out!")
-  return redirect(reverse('tracker_home'))
+  messages.success(request, "See you next time!")
+  return redirect(reverse('home'))
 
   
 
