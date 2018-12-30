@@ -21,6 +21,8 @@
         <p>If you are having the same problem as someone else you can upvote the bug report so that it gets attention quicker. You can upvote as many times as you like.</p>
         
         <p>If you would like to see a feature added to the app you can suggest one or upvote one someone has already subbmitted. As we promise to spend at least 50% of our development time on new features, every upvote will cost one UniCoin. You can buy UniCoins <a href="{% url 'products' %}">here</a>.</p>
+        
+        <p>Please Login or Register to UpVote</p>
       </div>
     </div>
     
@@ -174,7 +176,11 @@
             </div>
             
             <div class="col-sm-4 text-right">
+              {% if user.is_authenticated %}
               <button data-id="{{ other_bug.id }}" class="btn btn-primary upvote-btn score"><i class="fas fa-arrow-up"></i> <span class="score-btn">{{ other_bug.score }}</span></button>
+              {% else %}
+              <button disabled data-id="{{ other_bug.id }}" class="btn btn-primary upvote-btn score"><i class="fas fa-arrow-up"></i> <span class="score-btn">{{ other_bug.score }}</span></button>
+              {% endif %}
             </div>
           </div>
         </div>
@@ -188,40 +194,40 @@
       
       <div class="col-md-6">
         <div class="row">
-            <div class="col-12 text-center"><h4>Bugs</h4></div>
+            <div class="col-12 text-center"><h4>Features</h4></div>
         </div>
         
-        <!--FIXED TICKETS-->
+        <!--ADDED FEATURES-->
         <div class="ticket-head fixed">
         <hr>
         <div class="row">
-          <div class="col-4">FIXED</div>
-          <div class="col-4">Total: {{ total_fixed }}</div>
+          <div class="col-4">ADDED</div>
+          <div class="col-4">Total: {{ total_added }}</div>
           <div class="col-4"><a href="">View All</a></div>
         </div>
         <hr>
         </div>
         
         <p class="text-left"><small>Most Recent</small></p>
-        {% if fixed_bugs %}
+        {% if added_features %}
         <div class="row">
-        {% for fixed_bug in fixed_bugs|slice:":1" %}
+        {% for added_feature in added_features|slice:":1" %}
         <div class="col-sm-11 mx-auto ticket fixed text-left">
           <div class="row">
             <div class="col-sm-6">
-              <h5>{{ fixed_bug.title }}</h5>
+              <h5>{{ added_feature.title }}</h5>
             </div>
             
             <div class="col-sm-6 text-right">
-              <a href="{% url 'bug_detail' fixed_bug.id %}">More Info</a>
+              <a href="{% url 'feature_detail' added_feature.id %}">More Info</a>
             </div>
             
             <div class="col-sm-8">
-              <p class="ticket-desc">{{ fixed_bug.description|truncatechars:70  }}</p>
+              <p class="ticket-desc">{{ added_feature.description|truncatechars:70  }}</p>
             </div>
             
             <div class="col-sm-4 text-right">
-              <span class="score faded"><i class="fas fa-arrow-up"></i> {{ fixed_bug.score }}</span>
+              <span class="score faded"><i class="fas fa-arrow-up"></i> {{ added_feature.score }}</span>
             </div>
           </div>
         </div>
@@ -232,38 +238,38 @@
         
         
         
-        <!--WORKING ON TICKETS-->
+        <!--WORKING ON FEATURES-->
         <div class="ticket-head working-on">
         <hr>
         <div class="row">
           <div class="col-4">Working On</div>
-          <div class="col-4">Total: {{ total_working }}</div>
+          <div class="col-4">Total: {{ total_working_features }}</div>
           <div class="col-4"><a href="">View All</a></div>
         </div>
         <hr>
         </div>
         
         <p class="text-left"><small>Most Upvoted</small></p>
-        {% if working_bugs %}
+        {% if working_features %}
         <div class="row">
-        {% for working_bug in working_bugs|slice:":3" %}
+        {% for working_feature in working_features|slice:":3" %}
         
         <div class="col-sm-11 mx-auto ticket working-on text-left">
           <div class="row">
             <div class="col-sm-6">
-              <h5>{{ working_bug.title }}</h5>
+              <h5>{{ working_feature.title }}</h5>
             </div>
             
             <div class="col-sm-6 text-right">
-              <a href="{% url 'bug_detail' working_bug.id %}">More Info</a>
+              <a href="{% url 'feature_detail' working_feature.id %}">More Info</a>
             </div>
             
             <div class="col-sm-8">
-              <p class="ticket-desc">{{ working_bug.description|truncatechars:70  }}</p>
+              <p class="ticket-desc">{{ working_feature.description|truncatechars:70  }}</p>
             </div>
             
             <div class="col-sm-4 text-right">
-              <span class="score faded"><i class="fas fa-arrow-up"></i> {{ working_bug.score }}</span>
+              <span class="score faded"><i class="fas fa-arrow-up"></i> {{ working_feature.score }}</span>
             </div>
           </div>
         </div>
@@ -275,41 +281,48 @@
         
         
         
-        <!--TODO TICKETS-->
+        <!--PENDING FEATURES-->
         <div class="ticket-head todo">
         <hr>
         <div class="row">
-          <div class="col-4">To Do</div>
-          <div class="col-4">Total: {{ total_other }}</div>
+          <div class="col-4">Pending</div>
+          <div class="col-4">Total: {{ total_other_features }}</div>
           <div class="col-4"><a href="">View All</a></div>
         </div>
         <hr>
         </div>
         
         <p class="text-left"><small>Most Upvoted</small></p>
-        {% if other_bugs %}
+        {% if other_features %}
         <div class="row">
-        {% for other_bug in other_bugs|slice:":3" %}
+        {% for other_feature in other_features|slice:":3" %}
         
         <div class="col-sm-11 mx-auto ticket todo text-left">
           <div class="row">
             <div class="col-sm-6">
-              <h5>{{ other_bug.title }}</h5>
+              <h5>{{ other_feature.title }}</h5>
             </div>
             
             <div class="col-sm-6 text-right">
-              <a href="{% url 'bug_detail' other_bug.id %}">More Info</a>
+              <a href="{% url 'feature_detail' other_feature.id %}">More Info</a>
             </div>
             
             <div class="col-sm-8">
-              <p class="ticket-desc">{{ other_bug.description|truncatechars:70 }}</p>
+              <p class="ticket-desc">{{ other_feature.description|truncatechars:70 }}</p>
             </div>
             
             <div class="col-sm-4 text-right">
-              <span class="score"><i class="fas fa-arrow-up"></i> {{ other_bug.score }}</span>
+              {% if user.is_authenticated %}
+              <button data-id="{{ other_feature.id }}" class="btn btn-primary upvote-btn-feature score"><i class="fas fa-arrow-up"></i> <span class="score-btn">{{ other_feature.score }}</span></button>
+              {% else %}
+              <button disabled data-id="{{ other_feature.id }}" class="btn btn-primary upvote-btn-feature score"><i class="fas fa-arrow-up"></i> <span class="score-btn">{{ other_feature.score }}</span></button>
+              {% endif %}
+              <p class="token-msg text-danger d-none"><small>No UniCoins To UpVote</small></p>
             </div>
+            
           </div>
         </div>
+        
 
         {% endfor %}
         </div>
@@ -333,6 +346,31 @@ $(".upvote-btn").click(function() {
     url: url,
     success: function (data) {
       $(clicked_element).find("span").html(data.score);
+    }
+    
+    });
+});
+
+
+
+$(".upvote-btn-feature").click(function() {
+  
+  var clicked_element = this;
+  
+  var id = $(clicked_element).attr("data-id");
+  
+  var url = '/issue-tracker/upvote-feature/'+id;
+  
+  
+  $.ajax({
+    url: url,
+    success: function (data) {
+      $(clicked_element).find("span").html(data.score);
+      $("#token-total").html(data.tokens);
+      
+      if(data.message) {
+        $("p.token-msg").removeClass('d-none');
+      }
     }
     
     });

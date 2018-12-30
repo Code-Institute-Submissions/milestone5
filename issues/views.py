@@ -66,7 +66,18 @@ def upvote_feature(request, pk):
       
       tokens.amount -= 1
       tokens.save()
-  return redirect(feature_detail, feature.pk)  
+      
+      data = {
+        'score': feature.score,
+        'tokens': tokens.amount
+      }
+    else:
+      data = {
+        'score': feature.score,
+        'tokens': '0',
+        'message': "You Have No Tokens To Upvote"
+      }
+    return JsonResponse(data) 
 
 
 @login_required  

@@ -13,5 +13,5 @@ urlpatterns = [
   url(r'^all_features$', all_features, name='all_features'),
   url(r'^feature/(?P<pk>\d+)/$', feature_detail, name='feature_detail'),
   url(r'^suggest-feature$', suggest_feature, name='suggest_feature'),
-  url(r'^upvote_feature/(?P<pk>\d+)/$', upvote_feature, name='upvote_feature'),
+  url(r'^upvote-feature/(?P<pk>\d+)/$', upvote_feature, name='upvote_feature'),
 ]
