@@ -30,7 +30,7 @@
       <div class="col-6">
         <div class="circle">
           <h2>
-            Bugs Fixed<br>Today<br>0
+            Bugs Fixed<br>Today<br>{{ total_fixed_today }}
           </h2>
         </div>   
       </div>
@@ -39,7 +39,7 @@
       <div class="col-6">
         <div class="circle">
           <h2>
-            Extra Features<br>Added<br>0
+            Extra Features<br>Added<br>{{ total_added }}
           </h2>
         </div>
       </div>
@@ -67,7 +67,7 @@
         <div class="row">
           <div class="col-4">FIXED</div>
           <div class="col-4">Total: {{ total_fixed }}</div>
-          <div class="col-4"><a href="">View All</a></div>
+          <div class="col-4"><a href="{% url 'all_bugs_fixed' %}">View All</a></div>
         </div>
         <hr>
         </div>
@@ -108,7 +108,7 @@
         <div class="row">
           <div class="col-4">Working On</div>
           <div class="col-4">Total: {{ total_working }}</div>
-          <div class="col-4"><a href="">View All</a></div>
+          <div class="col-4"><a href="{% url 'all_bugs_working' %}">View All</a></div>
         </div>
         <hr>
         </div>
@@ -151,7 +151,7 @@
         <div class="row">
           <div class="col-4">To Do</div>
           <div class="col-4">Total: {{ total_other }}</div>
-          <div class="col-4"><a href="">View All</a></div>
+          <div class="col-4"><a href="{% url 'all_bugs_todo' %}">View All</a></div>
         </div>
         <hr>
         </div>
@@ -203,7 +203,7 @@
         <div class="row">
           <div class="col-4">ADDED</div>
           <div class="col-4">Total: {{ total_added }}</div>
-          <div class="col-4"><a href="">View All</a></div>
+          <div class="col-4"><a href="{% url 'all_features_added' %}">View All</a></div>
         </div>
         <hr>
         </div>
@@ -244,7 +244,7 @@
         <div class="row">
           <div class="col-4">Working On</div>
           <div class="col-4">Total: {{ total_working_features }}</div>
-          <div class="col-4"><a href="">View All</a></div>
+          <div class="col-4"><a href="{% url 'all_features_working' %}">View All</a></div>
         </div>
         <hr>
         </div>
@@ -287,7 +287,7 @@
         <div class="row">
           <div class="col-4">Pending</div>
           <div class="col-4">Total: {{ total_other_features }}</div>
-          <div class="col-4"><a href="">View All</a></div>
+          <div class="col-4"><a href="{% url 'all_features_pending' %}">View All</a></div>
         </div>
         <hr>
         </div>

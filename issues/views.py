@@ -7,8 +7,24 @@ from accounts.models import Token
 from .forms import ReportBugForm, SuggestFeatureForm
 
 
-def all_bugs(request):
-  return render(request, "allbugs.html")
+def all_bugs_fixed(request):
+  bugs = Bug.objects.filter(fixed=True).order_by('-date_fixed')
+  total = bugs.count()
+  status = "fixed"
+  return render(request, "allbugs.html", {'bugs':bugs, 'total':total, 'status':status})
+  
+  
+def all_bugs_working(request):
+  bugs = Bug.objects.filter(working_on=True).order_by('-score')
+  total = bugs.count()
+  status = "working-on"
+  return render(request, "allbugs.html", {'bugs':bugs, 'total':total, 'status':status})
+  
+def all_bugs_todo(request):
+  bugs = Bug.objects.filter(fixed=False, working_on=False).order_by('-score')
+  total = bugs.count()
+  status = "todo"
+  return render(request, "allbugs.html", {'bugs':bugs, 'total':total, 'status':status})
   
   
 def bug_detail(request, pk):
@@ -45,8 +61,24 @@ def report_bug(request):
 
 
 
-def all_features(request):
-  return render(request, "allfeatures.html")
+def all_features_added(request):
+  features = Feature.objects.filter(added=True).order_by('-date_added')
+  total = features.count()
+  status = "added"
+  return render(request, "allfeatures.html", {'features':features, 'total':total, 'status':status})
+  
+  
+def all_features_working(request):
+  features = Feature.objects.filter(working_on=True).order_by('-score')
+  total = features.count()
+  status = "working-on"
+  return render(request, "allfeatures.html", {'features':features, 'total':total, 'status':status})
+  
+def all_features_pending(request):
+  features = Feature.objects.filter(added=False, working_on=False).order_by('-score')
+  total = features.count()
+  status = "pending"
+  return render(request, "allfeatures.html", {'features':features, 'total':total, 'status':status})
   
   
 def feature_detail(request, pk):

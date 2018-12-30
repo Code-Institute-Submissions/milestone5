@@ -4,19 +4,92 @@
 
 
 {% block hero %}
-<div class="col-md-6">
-  <h1>See Something You Like?</h1>
+<div class="col-md-10 mx-auto text-center">
+  <h1>Your Wish Is Our Command</h1>
 </div>
 {% endblock %}
 
 {% block content %}
 <section>
   <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
+    <!--FIXED TICKETS-->
+        <div class="ticket-head {{ status }} text-center">
+        <hr>
+        <div class="row">
+          <div class="col-6">{{ status|upper }}</div>
+          <div class="col-6">Total: {{ total }}</div>
+        </div>
+        <hr>
+        </div>
+        {% if status == "added" %}
+        <p class="text-left"><small>Most Recent First</small></p>
+        {% else %}
+        <p class="text-left"><small>Most UpVoted First</small></p>
+        {% endif %}
+        {% if features %}
+        <div class="row">
+        {% for feature in features %}
+        <div class="col-sm-11 mx-auto ticket {{ status }} text-left">
+          <div class="row">
+            <div class="col-sm-6">
+              <h5>{{ feature.title }}</h5>
+            </div>
+            
+            <div class="col-sm-6 text-right">
+              <a href="{% url 'feature_detail' feature.id %}">More Info</a>
+            </div>
+            
+            <div class="col-sm-8">
+              <p class="ticket-desc">{{ feature.description|truncatechars:70  }}</p>
+            </div>
+            
+            <div class="col-sm-4 text-right">
+            {% if feature.added or feature.working_on %}
+            <span class="score faded upvote-btn score"><i class="fas fa-arrow-up"></i> {{ feature.score }}</span>
         
-      </div>
-    </div>
+            {% else %}
+            {% if user.is_authenticated %}
+            <button data-id="{{ feature.id }}" class="btn btn-primary upvote-btn-feature score"><i class="fas fa-arrow-up"></i> <span class="score-btn">{{ feature.score }}</span></button>
+            {% else %}
+            <button disabled data-id="{{ feature.id }}" class="btn btn-primary upvote-btn-feature score"><i class="fas fa-arrow-up"></i> <span class="score-btn">{{ feature.score }}</span></button>
+            {% endif %}
+            <p class="token-msg text-danger d-none"><small>No UniCoins To UpVote</small></p>
+            {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        </div>
+        {% endif %}
   </div>
 </section>
+
+
+
+
+<script>
+$(".upvote-btn-feature").click(function() {
+  
+  var clicked_element = this;
+  
+  var id = $(clicked_element).attr("data-id");
+  
+  var url = '/issue-tracker/upvote-feature/'+id;
+  
+  
+  $.ajax({
+    url: url,
+    success: function (data) {
+      $(clicked_element).find("span").html(data.score);
+      $("#token-total").html(data.tokens);
+      
+      if(data.message) {
+        $("p.token-msg").removeClass('d-none');
+      }
+    }
+    
+    });
+});
+
+</script>
 {% endblock %}

@@ -127,11 +127,19 @@ section.home-cta h3 {
     background-color: rgba(35, 161, 39, 0.3);
 }
 
+.ticket-head.added {
+    background-color: rgba(35, 161, 39, 0.3);
+}
+
 .ticket-head.working-on {
     background-color: rgba(161, 41, 255, 0.3);
 }
 
 .ticket-head.todo {
+    background-color: rgba(41, 148, 255, 0.3);
+}
+
+.ticket-head.pending {
     background-color: rgba(41, 148, 255, 0.3);
 }
 
@@ -145,11 +153,19 @@ section.home-cta h3 {
     border: solid 2px #23a127;
 }
 
+.ticket.added {
+    border: solid 2px #23a127;
+}
+
 .ticket.working-on {
     border: solid 2px #a129ff;
 }
 
 .ticket.todo {
+    border: solid 2px #2994ff;
+}
+
+.ticket.pending {
     border: solid 2px #2994ff;
 }
 

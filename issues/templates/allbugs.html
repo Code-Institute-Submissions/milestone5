@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% load bootstrap_tags %}
-{% block page_title %}All Bugs% endblock %}
+{% block page_title %}All Bugs{% endblock %}
 
 
 {% block hero %}
-<div class="col-md-6">
+<div class="col-md-10 mx-auto text-center">
   <h1>Look At All Those Nasty Bugs!</h1>
 </div>
 {% endblock %}
@@ -12,11 +12,78 @@
 {% block content %}
 <section>
   <div class="container">
-    <div class="row">
-      <div class="col-sm-12">
+    <!--FIXED TICKETS-->
+        <div class="ticket-head {{ status }} text-center">
+        <hr>
+        <div class="row">
+          <div class="col-6">{{ status|upper }}</div>
+          <div class="col-6">Total: {{ total }}</div>
+        </div>
+        <hr>
+        </div>
+        {% if status == "fixed" %}
+        <p class="text-left"><small>Most Recent First</small></p>
+        {% else %}
+        <p class="text-left"><small>Most UpVoted First</small></p>
+        {% endif %}
+        {% if bugs %}
+        <div class="row">
+        {% for bug in bugs %}
+        <div class="col-sm-11 mx-auto ticket {{ status }} text-left">
+          <div class="row">
+            <div class="col-sm-6">
+              <h5>{{ bug.title }}</h5>
+            </div>
+            
+            <div class="col-sm-6 text-right">
+              <a href="{% url 'bug_detail' bug.id %}">More Info</a>
+            </div>
+            
+            <div class="col-sm-8">
+              <p class="ticket-desc">{{ bug.description|truncatechars:70  }}</p>
+            </div>
+            
+            <div class="col-sm-4 text-right">
+            {% if bug.fixed or bug.working_on %}
+            <span class="score faded upvote-btn score"><i class="fas fa-arrow-up"></i> {{ bug.score }}</span>
         
-      </div>
-    </div>
+            {% else %}
+            {% if user.is_authenticated %}
+            <button data-id="{{ bug.id }}" class="btn btn-primary upvote-btn score"><i class="fas fa-arrow-up"></i> <span class="score-btn">{{ bug.score }}</span></button>
+            {% else %}
+            <button disabled data-id="{{ bug.id }}" class="btn btn-primary upvote-btn score"><i class="fas fa-arrow-up"></i> <span class="score-btn">{{ bug.score }}</span></button>
+            {% endif %}
+            {% endif %}
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        </div>
+        {% endif %}
   </div>
 </section>
+
+
+
+
+<script>
+$(".upvote-btn").click(function() {
+  
+  var clicked_element = this;
+  
+  var id = $(clicked_element).attr("data-id");
+  
+  var url = '/issue-tracker/upvote-bug/'+id;
+  
+  
+  $.ajax({
+    url: url,
+    success: function (data) {
+      $(clicked_element).find("span").html(data.score);
+    }
+    
+    });
+});
+
+</script>
 {% endblock %}

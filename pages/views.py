@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from issues.models import Bug, Feature
+from datetime import date
 
 # Create your views here.
 def index(request):
@@ -8,6 +9,8 @@ def index(request):
 def issue_tracker(request):
     fixed_bugs = Bug.objects.filter(fixed=True).order_by('-date_fixed')
     total_fixed = fixed_bugs.count()
+    
+    total_fixed_today  = fixed_bugs.filter(date_fixed__date=date.today()).count()
     
     working_bugs = Bug.objects.filter(working_on=True).order_by('-score')
     total_working = working_bugs.count()
@@ -26,6 +29,7 @@ def issue_tracker(request):
     total_other_features = other_features.count()
     return render(request, 'issuetracker.html', {'fixed_bugs':fixed_bugs,
                                                 'total_fixed':total_fixed,
+                                                'total_fixed_today':total_fixed_today,
                                                 'working_bugs':working_bugs,
                                                 'total_working':total_working,
                                                 'other_bugs':other_bugs,
@@ -37,3 +41,9 @@ def issue_tracker(request):
                                                 'other_features':other_features,
                                                 'total_other_features':total_other_features,
                                                 })
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
