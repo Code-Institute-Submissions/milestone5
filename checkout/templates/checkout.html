@@ -31,19 +31,19 @@
           <h3 class="card-header">{{ item.product.name }}</h3>
           <div class="card-body">
             <p class="card-title">{{ item.product.description }}</p>
-            <p>{{ item.quantity }}</p>
+            <p>Qty {{ item.quantity }}</p>
           </div>
           <img class="img-fluid"  src="{{ MEDIA_URL }}{{ item.product.image }}" alt="Product Image">
          
           <div class="card-body text-center">
-            £{{ item.product.price }}
+            £ {{ item.product.price }}
           </div>
         </div>
       </div>
       {% endfor %}
       
-      <div class="col-md-6 col-lg-4 mx-auto">
-        <p>Total: £{{ total }}</p>
+      <div class="col-md-6 col-lg-4 mx-auto text-center">
+        <p>Total: £ {{ total }}</p>
       </div>
     </div>
     

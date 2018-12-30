@@ -197,6 +197,15 @@ section.home-cta h3 {
 
 
 
+/*CART*/
+.cart-product {
+    margin-bottom: 36px;
+}
+
+
+
+
+
 footer {
     padding-top: 50px;
     position: absolute;
