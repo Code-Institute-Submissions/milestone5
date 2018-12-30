@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
+{% load static from staticfiles %}
 {% block page_title %}Issue Tracker - Home{% endblock %}
+
 
 {% block hero %}
 
@@ -172,7 +174,7 @@
             </div>
             
             <div class="col-sm-4 text-right">
-              <span class="score"><i class="fas fa-arrow-up"></i> {{ other_bug.score }}</span>
+              <button data-id="{{ other_bug.id }}" class="btn btn-primary upvote-btn score"><i class="fas fa-arrow-up"></i> <span class="score-btn">{{ other_bug.score }}</span></button>
             </div>
           </div>
         </div>
@@ -314,4 +316,28 @@
         {% endif %}
       </div>
     </div>
+    
+    
+    
+<script>
+$(".upvote-btn").click(function() {
+  
+  var clicked_element = this;
+  
+  var id = $(clicked_element).attr("data-id");
+  
+  var url = '/issue-tracker/upvote-bug/'+id;
+  
+  
+  $.ajax({
+    url: url,
+    success: function (data) {
+      $(clicked_element).find("span").html(data.score);
+    }
+    
+    });
+});
+</script>
 {% endblock %}
+
+

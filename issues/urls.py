@@ -8,7 +8,7 @@ urlpatterns = [
   url(r'^all-bugs$', all_bugs, name='all_bugs'),
   url(r'^bug/(?P<pk>\d+)/$', bug_detail, name='bug_detail'),
   url(r'^report-bug$', report_bug, name='report_bug'),
-  url(r'^upvote_bug/(?P<pk>\d+)/$', upvote_bug, name='upvote_bug'),
+  url(r'^upvote-bug/(?P<pk>\d+)/$', upvote_bug, name='upvote_bug'),
   
   url(r'^all_features$', all_features, name='all_features'),
   url(r'^feature/(?P<pk>\d+)/$', feature_detail, name='feature_detail'),

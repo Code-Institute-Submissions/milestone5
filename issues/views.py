@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.http import JsonResponse
 from .models import Bug, Feature
 from accounts.models import Token
 from .forms import ReportBugForm, SuggestFeatureForm
@@ -20,7 +21,11 @@ def upvote_bug(request, pk):
   bug = get_object_or_404(Bug, pk=pk)
   bug.score += 1
   bug.save()
-  return redirect(bug_detail, bug.pk)
+  
+  data = {
+        'score': bug.score
+    }
+  return JsonResponse(data)
 
 
 @login_required
