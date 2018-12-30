@@ -166,6 +166,18 @@ section.home-cta h3 {
 }
 
 
+/*DETAIL PAGE*/
+.upvote-btn.score {
+    font-size: 30px;
+}
+
+.upvote-btn-feature.score {
+    font-size: 30px;
+}
+
+.bug-detail p.desc {
+    font-size: 20px;
+}
 
 
 

@@ -3,23 +3,57 @@
 {% block page_title %}Bug - {{ bug.title }}{% endblock %}
 
 {% block hero %}
-<div class="col-md-6">
+<div class="col-md-12 text-center">
   <h1>{{ bug.title }}</h1>
 </div>
 {% endblock %}
 
 {% block content %}
-<section>
+<section class="bug-detail">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12">
-        <p>{{ bug.description }}</p>
+      <div class="col-sm-12 text-center">
+        <p class="desc">{{ bug.description }}</p>
         
-        <p>Score: {{ bug.score }}</p>
+        <p>If you are having the same issue, then hit that upvote button and let us know</p>
+        <p><small>(Don't forget to login or register)</small></p>
         
-        <a href="{% url 'upvote_bug' bug.id %}" class="btn btn-lg btn-success">Upvote</a>
+        {% if bug.fixed or bug.working_on %}
+        <span class="score faded upvote-btn score"><i class="fas fa-arrow-up"></i> {{ bug.score }}</span>
+        
+        <p class="text-success">ISSUE IS EITHER FIXED OR IS BEING WORKED ON</p>
+        {% else %}
+        {% if user.is_authenticated %}
+        <button data-id="{{ bug.id }}" class="btn btn-primary upvote-btn score"><i class="fas fa-arrow-up"></i> <span class="score-btn">{{ bug.score }}</span></button>
+        {% else %}
+        <button disabled data-id="{{ bug.id }}" class="btn btn-primary upvote-btn score"><i class="fas fa-arrow-up"></i> <span class="score-btn">{{ bug.score }}</span></button>
+        {% endif %}
+        {% endif %}
       </div>
     </div>
   </div>
 </section>
+
+
+
+
+<script>
+  $(".upvote-btn").click(function() {
+  
+  var clicked_element = this;
+  
+  var id = $(clicked_element).attr("data-id");
+  
+  var url = '/issue-tracker/upvote-bug/'+id;
+  
+  
+  $.ajax({
+    url: url,
+    success: function (data) {
+      $(clicked_element).find("span").html(data.score);
+    }
+    
+    });
+});
+</script>
 {% endblock %}

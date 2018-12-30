@@ -4,23 +4,64 @@
 
 
 {% block hero %}
-<div class="col-md-6">
+<div class="col-md-12 text-center">
   <h1>{{ feature.title }}</h1>
 </div>
 {% endblock %}
 
 {% block content %}
-<section>
+<section class="bug-detail">
   <div class="container">
     <div class="row">
-      <div class="col-sm-12">
-        <p>{{ feature.description }}</p>
+      <div class="col-sm-12 text-center">
+        <p class="desc">{{ feature.description }}</p>
         
-        <p>Score: {{ feature.score }}</p>
+        <p>If you would like the same feature, then hit that upvote button and let us know</p>
+        <p><small>(Don't forget to login or register, and make sure you have at least one Unicoin)</small></p>
         
-        <a href="{% url 'upvote_feature' feature.id %}" class="btn btn-lg btn-success">Upvote</a>
+        {% if feature.added or feature.working_on %}
+        <span class="score faded upvote-btn score"><i class="fas fa-arrow-up"></i> {{ feature.score }}</span>
+        
+        <p class="text-success">FEATURE HAS EITHER BEEN ADDED OR IS BEING WORKED ON</p>
+        {% else %}
+        {% if user.is_authenticated %}
+        <button data-id="{{ feature.id }}" class="btn btn-primary upvote-btn-feature score"><i class="fas fa-arrow-up"></i> <span class="score-btn">{{ feature.score }}</span></button>
+        <p class="token-msg text-danger d-none"><small>No UniCoins To UpVote</small></p>
+        {% else %}
+        <button disabled data-id="{{ feature.id }}" class="btn btn-primary upvote-btn-feature score"><i class="fas fa-arrow-up"></i> <span class="score-btn">{{ feature.score }}</span></button>
+        {% endif %}
+        {% endif %}
       </div>
     </div>
   </div>
 </section>
+
+
+
+
+
+<script>
+$(".upvote-btn-feature").click(function() {
+  
+  var clicked_element = this;
+  
+  var id = $(clicked_element).attr("data-id");
+  
+  var url = '/issue-tracker/upvote-feature/'+id;
+  
+  
+  $.ajax({
+    url: url,
+    success: function (data) {
+      $(clicked_element).find("span").html(data.score);
+      $("#token-total").html(data.tokens);
+      
+      if(data.message) {
+        $("p.token-msg").removeClass('d-none');
+      }
+    }
+    
+    });
+});
+</script>
 {% endblock %}
