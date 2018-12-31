@@ -5,6 +5,10 @@ from .forms import BugCommentForm, FeatureCommentForm
 from issues.models import Bug, Feature
 from issues.views import bug_detail, feature_detail
 
+# AGAIN EVEN THE COMMENTS FOR EACH TYPE OF ISSUE ARE KEPT APART, THERE ARE TWO VIEWS, TWO MODELS AND TWO FORMS
+# ALTHOUGH THIS MAY BE SLIGHTLY MORE WORK, IN THE LONG RUN IT WILL BE EASIER FOR ANYONE TO VIEW THE CODE 
+# AND KNOW WHAT IS WHAT
+
 @login_required
 def add_bug_comment(request, pk):
   if request.method == "POST":

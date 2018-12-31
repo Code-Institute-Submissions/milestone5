@@ -11,3 +11,5 @@ class ProductTest(TestCase):
         test_name = Product(name='a product')
         self.assertEqual(str(test_name), 'a product')
         
+
+# SIMPLE TEST TO DETERMINE NAME FIELD CAN TAKE STRING

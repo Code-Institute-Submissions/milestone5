@@ -6,6 +6,11 @@ from datetime import date
 def index(request):
     return render(request, 'index.html')
     
+    
+
+
+# HERE THE BUG AND FEATURE MODEL OBJECTS ARE FILTERED BEFORE BEING SENT TO TEMPLATE
+# THIS PREVENTS TOO MUCH LOGIC HAPPENING IN THE TEMPLATE, HERE IS MUCH TIDIER
 def issue_tracker(request):
     fixed_bugs = Bug.objects.filter(fixed=True).order_by('-date_fixed')
     total_fixed = fixed_bugs.count()

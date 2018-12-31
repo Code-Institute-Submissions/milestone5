@@ -17,6 +17,8 @@ def checkout(request):
     order_form = OrderForm(request.POST)
     payment_form = MakePaymentForm(request.POST)
     
+    
+    
     if order_form.is_valid() and payment_form.is_valid():
       
       cart = request.session.get('cart', {})
@@ -38,7 +40,10 @@ def checkout(request):
       except stripe.error.CardError:
                 messages.error(request, "Your card was declined!")
                 
-                
+       
+       
+      # ONCE WE ARE SURE THE CUSTOMER HAS PAID WE CAN ADD TOKENS TO THEIR ACCOUNT
+      # AND RECORD THE ORDERS AGAINST THEIR USERNAME
       if customer.paid:
         messages.success(request, "You have successfully paid")
         request.session['cart'] = {}

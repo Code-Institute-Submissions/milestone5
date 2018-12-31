@@ -1,5 +1,7 @@
 from django.db import models
 
+# ONE MODEL NEEDED FOR PRODUCTS, PRICE AND TOKEN AMOUNT VERY IMPORTANT
+
 class Product(models.Model):
     name = models.CharField(max_length=254, default='')
     description = models.TextField()

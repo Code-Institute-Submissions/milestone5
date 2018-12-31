@@ -18,6 +18,9 @@
     
     <div class="row">
       
+      <!--THERE ARE THREE PRODUCTS, THEY ARE DIFFERENT AMOUNTS OF TOKENS (UNICOINS)
+          THEY HAVE TO BE PURCHASED IN ORDER TO UPVOTE FEATURES-->
+      
       {% for product in products %}
       <div class="col-md-6 col-lg-4 mx-auto">
         <div class="card mb-3">
@@ -34,6 +37,7 @@
           <div class="card-body text-center">
             <form method="post" action="{% url 'add_to_cart' product.id %}">
               {% csrf_token %}
+              <!--HIDDEN INPUT TO STORE QUANTITY AS 1 NEEDED FOR CART CONTEXT-->
               <input type="hidden" name="quantity" value='1'/>
               <button class="btn btn-lg btn-success" type="submit">Add To Cart</button>
             </form>

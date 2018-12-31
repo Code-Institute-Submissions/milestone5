@@ -8,6 +8,13 @@ from comments.models import BugComment, FeatureComment
 from .forms import ReportBugForm, SuggestFeatureForm
 
 
+
+# THIS IS THE MAIN APP FOR DEALING WITH ALL THE ISSUES
+# I HAVE SPLIT THE CODE INTO BUGS AND FEATURES THIS SHOULD MAKE IT EASIER TO FOLLOW
+# AND MAINTAIN IN THE FUTURE
+
+
+# BUG LOGIC
 def all_bugs_fixed(request):
   bugs = Bug.objects.filter(fixed=True).order_by('-date_fixed')
   total = bugs.count()
@@ -71,7 +78,7 @@ def report_bug(request):
 
 
 
-
+# FEATURE LOGIC
 def all_features_added(request):
   features = Feature.objects.filter(added=True).order_by('-date_added')
   total = features.count()

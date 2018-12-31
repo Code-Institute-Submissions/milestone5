@@ -4,6 +4,11 @@ from issues.models import Bug, Feature
 from datetime import date
 import datetime
 
+
+# THESE VIEWS ARE SPECIFICALLY MADE TO RETRIEVE DATA FROM THE DATABASE AND PASS
+# IT TO JAVASCRIPT OF THE FONT END USING A JSON RESPONSE. 
+
+# THE DATA IS ONCE AGAIN ACQUIRED ASYNCHRONOUSLY
 def view_charts(request):
   return render(request,'charts.html')
   

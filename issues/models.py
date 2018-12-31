@@ -2,6 +2,11 @@ from django.db import models
 from django.contrib.auth import get_user_model
 from django.utils import timezone
 
+
+# I DECIDED TO KEEP THE BUGS AND FEATURES SEPERATE
+# THIS IS DONE THROUGHT OUT THE APP SO THAT THEY CAN BE WORKED ON INDIVIDUALLY
+# HELPS KEEP THE CODE TIDY
+
 class Bug(models.Model):
     """
     A Bug Report
