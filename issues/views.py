@@ -122,6 +122,16 @@ def upvote_feature(request, pk):
         'message': "You Have No Tokens To Upvote"
       }
     return JsonResponse(data) 
+    
+    
+    
+@login_required
+def feature_added(request, pk):
+  feature = get_object_or_404(Feature, pk=pk)
+  feature.added = True
+  feature.date_added = timezone.now()
+  feature.save()
+  return redirect(feature_detail, feature.pk)
 
 
 @login_required  

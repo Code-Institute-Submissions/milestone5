@@ -34,7 +34,7 @@
         
         {% if not feature.added %}
         {% if user.is_staff %}
-        <a href="" class="btn btn-lg btn-danger">Mark Feature As Added To App</a>
+        <a href="{% url 'feature_added' feature.id %}" class="btn btn-lg btn-danger">Mark Feature As Added To App</a>
         {% endif %}
         {% endif %}
       </div>
