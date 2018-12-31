@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% load bootstrap_tags %}
+{% block page_title %}Add A Comment{% endblock %}
+
+
+{% block hero %}
+<div class="col-md-12 text-center">
+  <h1>Add A Comment</h1>
+</div>
+{% endblock %}
+
+{% block content %}
+<section>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-8 mx-auto">
+        <h2>Add Your Comment Here</h2>
+        
+        <form method="POST">
+        {% csrf_token %}
+        {{ form | as_bootstrap }}
+        <button type="submit" class="btn btn-lg btn-primary">Add</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

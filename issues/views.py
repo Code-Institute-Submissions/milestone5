@@ -4,6 +4,7 @@ from django.utils import timezone
 from django.http import JsonResponse
 from .models import Bug, Feature
 from accounts.models import Token
+from comments.models import BugComment, FeatureComment
 from .forms import ReportBugForm, SuggestFeatureForm
 
 
@@ -29,7 +30,8 @@ def all_bugs_todo(request):
   
 def bug_detail(request, pk):
   bug = get_object_or_404(Bug, pk=pk)
-  return render(request, "bugdetail.html", {'bug': bug})
+  comments = BugComment.objects.filter(bug=pk).order_by('-date_created')
+  return render(request, "bugdetail.html", {'bug': bug, 'comments':comments})
   
   
 @login_required  
@@ -83,7 +85,8 @@ def all_features_pending(request):
   
 def feature_detail(request, pk):
   feature= get_object_or_404(Feature, pk=pk)
-  return render(request, "featuredetail.html", {'feature': feature})
+  comments = FeatureComment.objects.filter(feature=pk).order_by('-date_created')
+  return render(request, "featuredetail.html", {'feature': feature, 'comments': comments})
   
 
 @login_required  
