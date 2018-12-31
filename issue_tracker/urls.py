@@ -24,6 +24,7 @@ from checkout import urls as checkout_urls
 from issues import urls as issues_urls
 from cart import urls as cart_urls
 from charts import urls as charts_urls
+from comments import urls as comments_urls
 
 
 urlpatterns = [
@@ -35,6 +36,7 @@ urlpatterns = [
     url(r'^cart/', include(cart_urls)),
     url(r'^checkout/', include(checkout_urls)),
     url(r'^charts/', include(charts_urls)),
+    url(r'^comments/', include(comments_urls)),
     url(r'^media/(?P<path>.*)$', static.serve, {'document_root': MEDIA_ROOT}),
     
 ]
