@@ -29,6 +29,13 @@
         <button disabled data-id="{{ bug.id }}" class="btn btn-primary upvote-btn score"><i class="fas fa-arrow-up"></i> <span class="score-btn">{{ bug.score }}</span></button>
         {% endif %}
         {% endif %}
+        
+        
+        {% if not bug.fixed %}
+        {% if user.is_staff %}
+        <a href="{% url 'bug_fixed' bug.id %}" class="btn btn-lg btn-danger">Mark Bug As Fixed</a>
+        {% endif %}
+        {% endif %}
       </div>
     </div>
   </div>

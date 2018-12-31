@@ -31,6 +31,12 @@
         <button disabled data-id="{{ feature.id }}" class="btn btn-primary upvote-btn-feature score"><i class="fas fa-arrow-up"></i> <span class="score-btn">{{ feature.score }}</span></button>
         {% endif %}
         {% endif %}
+        
+        {% if not feature.added %}
+        {% if user.is_staff %}
+        <a href="" class="btn btn-lg btn-danger">Mark Feature As Added To App</a>
+        {% endif %}
+        {% endif %}
       </div>
     </div>
   </div>

@@ -44,6 +44,15 @@ def upvote_bug(request, pk):
         'score': bug.score
     }
   return JsonResponse(data)
+  
+  
+@login_required
+def bug_fixed(request, pk):
+  bug = get_object_or_404(Bug, pk=pk)
+  bug.fixed = True
+  bug.date_fixed = timezone.now()
+  bug.save()
+  return redirect(bug_detail, bug.pk)
 
 
 @login_required

@@ -40,7 +40,7 @@ def checkout(request):
                 
                 
       if customer.paid:
-        messages.error(request, "You have successfully paid")
+        messages.success(request, "You have successfully paid")
         request.session['cart'] = {}
         
         order = order_form.save(commit=False)
